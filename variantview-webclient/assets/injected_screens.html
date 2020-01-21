@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<body>
+<div id='VARVIEW-mainDiv'>
+  <div id="VARVIEW-TABS" class="yui-navset">
+    <ul class="yui-nav">
+      <li id="VARVIEW-TAB0" class="selected"><a href="#VARVIEW-TAB0"><em>Generate Report</em></a></li>
+      <li id="VARVIEW-TAB1"><a href="#VARVIEW-TAB1"><em>View Results</em></a></li>
+      <li id="VARVIEW-TAB2"><a href="#VARVIEW-TAB2"><em>Plugin Info</em></a></li>
+    </ul>
+    <div class="yui-content" id="VARVIEW-CONTENT">
+      <div>
+        <div class="VARVIEW-MainContent">
+          <div class="VARVIEW-MainContentPad">
+            <div class="VARVIEW-NoteInfo">Drag and drop the appropriate query parameters and select Run Query to generate results.</div>
+            <div id="varview-droptrgt-prs-fields" style="padding: 10px 100px 50px 10px;">
+              <div class="droptrgttbl">Patient Set:</div>
+              <div class="varview-droptrgt SDX-PRS" id="VARVIEW-PRSDROP">Drop a Patient Set here</DIV>
+            </div>
+            <div id="varview-droptrgt-conc-fields" style="padding: 10px 100px 100px 10px;">
+              <div class="droptrgttbl">Genomic Concepts:</div>
+              <div class="varview-droptrgt SDX-CONCEPT" id="VARVIEW-CONCPTDROP-PROT" style="display:none;">Prototype</div>
+            </div>
+             <div id="varview-droptrgt-clin-fields" style="padding: 25px 100px 50px 10px;">
+              <div class="droptrgttbl">Clinical Concepts:</div>
+              <div class="varview-droptrgt SDX-CLIN" id="VARVIEW-CLINDROP"><div class="clinicalItem">Drop one or more Concepts here</div>
+              </div>
+              <div id="varview-select-analysis-run" style="padding: 25px 100px 25px 10px;">
+                <div style="padding: 0px 0px 3px 0px">Report type:</div>
+                  <form>
+                    <select name='analysis_type' id='analysis_select'>
+                      <option value='allele_counts' selected>Total Allele Counts</option>
+                      <option value='omitted_report'>Other Reports Omitted From Demo</option> 
+                    </select>
+                  </form>
+              </div>
+              <div id="varview-genotype-filter" class="genotype_filter">
+                <div style="padding: 0px 0px 3px 0px">Enter genotype filter:</div>
+              <textarea placeholder="rs16492 is homref or rs1799977 is homvar"></textarea>
+              </div>
+              <div id="runQueryBox">
+                <a href="JavaScript:i2b2.VARVIEW.callVARVIEW();">
+                  <span id="runQueryBoxText">Run Query</span>
+                </a>
+              </div>
+              <div id="clearQueryBox">
+                <a href='JavaScript:i2b2.PLUGINMGR.ctrlr.main.selectPlugin("VARVIEW");'>
+                 <span id="clearQueryBoxText">Clear Query</span>
+                </a>
+              </div>
+            </div>
+         </div>
+        </div>
+      </div>
+      <div>
+        <div class="VARVIEW-MainContent">
+          <div class="VARVIEW-MainContentPad">
+            <div class="results-finished" style="display:none;">
+              <div class="VARVIEW-NoteInfo">Below are the patient sets extracted.</div>
+              <div id="variantVis" class="variantVis" style="overflow:hidden; white-space: nowrap;"></div>
+              <div class="varVisOptionTable" style:"display:none;">
+                <table id="chart_options">
+                  <tr>
+                    <td colspan="2" style="text-align:justify">Update chart with options below.</td>
+                  </tr>
+                  <tr><td colspan="2"><hr/></td></tr>
+                  <tr>
+                    <td style="text-align:right">
+                      <form>
+                        <select name='plot_type' onchange="i2b2.VARVIEW.updateChart(this.value)" >
+                          <option value='bar'>Bar</option>
+                          <option value='stacked-bar' selected>Stacked Bar</option>
+                          <option value='area-spline'>Area Spline</option>
+                          <option value="stacked-area-spline">Stacked Area Spline</option>
+                          <option value='spline'>Spline</option>
+                          <option value='step'>Step</option>
+                          <option value='area'>Area</option>
+                          <option value='scatter'>Scatter</option>
+                          <option value='area-step'>Area Step</option>
+                          <option value='line'>Line</option>
+                          <option value='pie'>Pie</option>
+                          <option value='donut'>Donut</option>
+                          <option value='gauge'>Gauge</option>
+                        </select>
+                      </form>
+                    </td>
+                  </tr>
+             </table>
+              </div>
+              <!--<table>
+                <td class="PatientSetResponse">-->
+              <div id="plot_specific" class="plotSpecific">
+                <div id="region_specific_options" class="regionOptions"></div>
+                <div id="position_specific_options" class="positionOptions"></div>
+                <div id="plot_specific_options" class="plotOptions"></div>
+              </div>
+                <!--</td>
+              </table>-->
+            </div>
+            <div class="results-progress" style="display:none;">Generating report...
+            </div>
+            <div class="results-error" style="display:none;">
+              <div class="VARVIEW-ErrorInfo">Error...</div>
+            </div>
+            <div class="results-directions"><div class="VARVIEW-NoteInfo">Select "Run Query" from the Prepare Report tab to generate results.</div></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="VARVIEW-MainContent" style="padding: 20px 20px 20px 20px;">
+          <!--div class="VARVIEW-MainContentPad"-->
+            <h1>VariantView Plugin</h1>
+            <hr size="1" noshade>
+            <h2>Introduction</h2>
+            The VariantView plugin is designed to perform integrated clinical and genomic queries and return a report visualization.            <h2>Instructions</h2>
+            Input query parameters are specified in the Generate Report tab. Queries must contain a genomic concept as well as optional patient set and clinical concept parameters. Note that the combination of what parameters to include in your query depends on the report type selected. Drag and drop a query from Previous Queries section (bottom left corner). These queries must have been formed from the Find Patients section, selecting Patient Set (first checkbox) in the pop-up after selecting Run Query.<br><br> 
+            Genomic Concepts are found from the Navigate Terms section, beneath the Sequence Ontology Variants. Current support is provided for DBSNP IDs and HGNC Gene Symbols in the SNV/SNP, deletion, insertion, and indel categories. Please specify gene names in captials and rs identifiers beginning with lower case "rs". Clinical Concepts are drag and dropped from the Navigate Terms section. If the interface does not allow you to drag and drop a specific concept over, you need to specify a more descriptive concept from within the concept you are attempting to drag. If the report generated returns back as a null value, then the concept you have selected does not have any information for your Patient Set. Concepts within Demographics and Sequence Ontology will not return results for any Patient Set. If your report returns null or you would like to query by Demographics, try to produce a patient set from the Find Patients tab using your concept of interest and re-running the variant report with that group. Data will be shown separately for each region selected.<br><br> 
+            The Genotype Filter is designed to filter samples by specific genotype. Filter statements specified in the form: rs### (is | is not) (homref | homvar | het | nocall). Filter statements are separated by AND / OR depending on your desired functionality. The filter logic operators are evaluated in the following order: (IS | IS NOT), AND and finally OR. The operators can be all upper case or all lower case. An example genotype filter is: rs12345 is homref and rs2356 is not nocall or rs34567 is het. Genotype filter can be used in any of the reports. If you cannot see data in the plot, but you can see genomic coordinates on the x-axis, zoom in on the plot or change the plot type.<br><br> This version of the plugin has one report type available:
+            <h3>Total Allele Counts</h3>
+            The total allele report counts provides the reference and alternate allele counts at each variant location within the selected genomic region for the patients provided. Reference allele count is computed as the sum of the heterozygous counts and double the homozygous reference counts. Alternate allele count is computed as the sum of the heterozygous counts and double the homozygous alternate counts.</br>
+            <b>Input:</b>: one or more patient sets, one or more genomic concepts.</br>
+            <b>Output:</b>: Allele counts vs Genomic Position</br>
+         <!--/div-->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

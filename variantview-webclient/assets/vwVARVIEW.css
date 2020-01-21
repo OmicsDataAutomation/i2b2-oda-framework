@@ -1,0 +1,183 @@
+/*** CSS for main plugin wrapper ***/
+
+DIV#VARVIEW-mainDiv {
+	padding: 0px;
+}
+
+/*** CSS for plots ***/
+.axis .domain {
+    display: none;
+}
+
+SVG {
+  overflow-x: hidden;
+}
+
+/*** CSS for tab background ***/
+
+DIV#VARVIEW-TABS DIV.yui-content {
+	background: #FFF;
+}
+
+DIV#VARVIEW-TABS DIV.VARVIEW-MainContent {
+    background:#FFF;
+    border:solid #63758C;
+    border-width:1px 0;
+    overflow:hidden;
+    height:100%;
+}
+DIV#VARVIEW-TABS DIV.VARVIEW-MainContentPad {
+    padding:5px 10px;
+    position:absolute;
+}
+
+
+/*** CSS for the Enter Note and View Results tabs ***/
+DIV#VARVIEW-TABS DIV.droptrgtlbl {
+	padding: 6px 0px;
+	width:80px;
+	text-align:right;
+	float: left;
+	font-weight:bold;
+	color:#666;
+	margin: 15px 10px 0px 0px;
+}
+#varview-droptrgt-prs-fields {
+        float: left;
+}
+#varview-droptrgt-conc-fields {
+        float: right;
+}
+.varview-droptrgt {
+	padding: 5px 10px;
+	background: #DEEBEF;
+	margin-top: 15px;
+	text-align:left;
+	border: 1px solid #63758C;
+	width:300px;
+	overflow:hidden;	
+}
+DIV#VARVIEW-TABS DIV.VARVIEW-NoteInfo {
+	margin:10px 0 10px 0;
+	font-size:13px;
+	color:#42558C;
+	font-weight:bold;
+}
+DIV#VARVIEW-TABS DIV.results-directions {
+	padding: 15px 10px;
+	text-align:left;
+	position:absolute;
+	width:400px;
+	top:0;
+	left:0;
+}
+DIV#VARVIEW-TABS DIV.results-finished {
+	padding: 15px 10px;
+	text-align:left;
+	position:absolute;
+	width:1050px;
+	top:0;
+	left:0;
+}
+DIV#VARVIEW-TABS DIV.results-progress {
+	background-image:url(VARVIEW-loading.gif);
+	background-repeat:no-repeat;
+	padding:2px 17px;
+	position:absolute;
+	width:400px;
+	top:10;
+	left:15;
+}
+
+
+
+/*** CSS for the Plugin Help tab ***/
+
+DIV#VARVIEW-TABS H1 {
+	margin:0 0 10px 0;
+	font-size:16px;
+	color:#42558C;
+	font-weight:bold;
+}
+DIV#VARVIEW-TABS H2 {
+	margin:10px 0 10px 0;
+	font-size:13px;
+	color:#42558C;
+	font-weight:bold;
+}
+DIV#VARVIEW-TABS HR {
+	margin:0;
+}
+
+DIV#runQueryBox {
+  position:relative;
+  xdisplay:none;
+  background:#6677AA;
+  border:1px solid #667788;
+  color:#FFFFFF;
+  font-weight:bold;
+  font-family:arial,helvetica;
+  font-size:11px;
+  height:20px;
+  line-height:20px;
+  text-align:center;
+  color:#FFF;
+  cursor:pointer;
+  float: left;
+  margin:5px 5px 0px 5px;
+  width:80px;
+  xz-index:5;
+  overflow:hidden;
+}
+
+DIV#runQueryBox a {
+  color:#FFF;
+  display:block;
+  text-decoration:none;
+}
+
+DIV#clearQueryBox a {
+  color:#FFF;
+  display:block;
+  text-decoration:none;
+}
+
+DIV#clearQueryBox {
+  position:relative;
+  xdisplay:none;
+  background:#6677AA;
+  border:1px solid #667788;
+  color:#FFFFFF;
+  font-weight:bold;
+  font-family:arial,helvetica;
+  font-size:11px;
+  height:20px;
+  line-height:20px;
+  text-align:center;
+  color:#FFF;
+  cursor:pointer;
+  float: left;
+  margin:5px 5px 0px 5px;
+  width:80px;
+  xz-index:5;
+  overflow:hidden;
+}
+
+
+
+DIV.genotype_filter {
+  padding: 5px 0px 5px 5px;
+  text-align:left;
+  width:97%;
+  overflow:auto;
+  font-weight:bold;
+  color:#666;
+}
+DIV.genotype_filter TEXTAREA {
+  border: 1px solid rgb(0, 0, 0);
+  float: left;
+  width: 97%;
+  height: 55px;
+  margin-right: 6px;
+  background: #DEEBEF;
+}
