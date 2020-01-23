@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:varview="http://www.i2b2.org/xsd/cell/varview/1.0/"
+    xmlns:pdo="http://www.i2b2.org/xsd/cell/crc/pdo/1.0/"
+    xmlns:crc="http://www.i2b2.org/xsd/cell/crc/pdo/1.1/"
+    targetNamespace="http://www.i2b2.org/xsd/cell/varview/1.0/">
+
+    <xs:import namespace="http://www.i2b2.org/xsd/cell/crc/pdo/1.1/"/>
+    
+    <xs:import schemaLocation="../../cell/crc/pdo_1.1/CRC_PDO_QRY_request.xsd"
+      namespace="http://www.i2b2.org/xsd/cell/crc/pdo/1.1/"/>
+
+    <xs:element name="VARRequest" type="varview:VARRequest" />
+
+    <xs:complexType name="VARRequest">
+        <xs:sequence>
+	    <xs:element name="patientSets" type="varview:patientSetsType"/>
+	    <xs:element name="QTSUrl" type="xs:anyURI"/>
+            <xs:element name="Concepts" type="varview:Concepts"/>
+            <xs:element name="filter_list" type="crc:filter_listType"/>
+            <xs:element name="Analyses" type="varview:Analyses"/>
+	    <xs:element name="genotype_filter" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+
+    <xs:complexType name="Analyses">
+      <xs:sequence>
+        <xs:element name="analysis" type="xs:string" maxOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="patientSetsType">
+        <xs:sequence>
+		<xs:element name="patient_set_coll_id" type="xs:int" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType> 
+
+    <xs:complexType name="Concepts">
+        <xs:sequence>
+		<xs:element name="concept" type="varview:concept" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType> 
+
+    <xs:complexType name="concept">
+        <xs:sequence>
+		<xs:element name="parent_variant_name" type="xs:string"  maxOccurs="1"/>
+		<xs:element name="name" type="xs:string"  maxOccurs="1"/>
+		<xs:element name="concept_value" type="varview:concept_value" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType> 
+
+    <xs:complexType name="concept_value">
+        <xs:sequence>
+		<xs:element name="value" type="xs:string"  maxOccurs="1"/>
+		<xs:element name="enumval" type="xs:string"  maxOccurs="1"/>
+		<xs:element name="comparator" type="xs:string"  maxOccurs="1"/>
+		<xs:element name="comparator_val" type="xs:int"  maxOccurs="1"/>
+		<xs:element name="lowval" type="xs:int"  maxOccurs="1"/>
+		<xs:element name="highval" type="xs:int"  maxOccurs="1"/>
+        </xs:sequence>
+      </xs:complexType>
+
+    <xs:complexType name="genotypes">
+      <xs:sequence>
+        <xs:element name="genotype" type="varview:genotype" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="genotype">
+      <xs:sequence>
+        <xs:element name="contig" type="xs:string" maxOccurs="1"/>
+        <xs:element name="start" type="xs:int" maxOccurs="1"/>      
+        <xs:element name="call" type="xs:int" maxOccurs="1"/>
+        <xs:element name="count" type="xs:long" maxOccurs="1"/>
+        <xs:element name="concept_path" type="xs:string" maxOccurs="1"/>
+        <xs:element name="nval_num" type="xs:double" maxOccurs="1"/>
+     </xs:sequence>
+    </xs:complexType> 
+    
+    <!--<xs:complexType name="variants">
+      <xs:sequence>
+        <xs:element name="variant" type="varview:variant" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="variant">
+      <xs:sequence>
+        <xs:element name="contig" type="xs:string" maxOccurs="1"/>
+        <xs:element name="start" type="xs:int" maxOccurs="1"/>
+        <xs:element name="ref_count" type="xs:int" maxOccurs="1"/>
+        <xs:element name="alt_count" type="xs:int" maxOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>-->
+
+    <xs:complexType name="mongoObject">
+      <xs:sequence>
+        <xs:element name="mongo_object" type="xs:string" maxOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="phenotypeGenotypeAssocSet">
+      <xs:sequence>
+        <xs:element name="phenotype_genotype_assoc_set" type="varview:phenotypeGenotypeAssoc" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="phenotypeGenotypeAssoc">
+      <xs:sequence>
+        <xs:element name="concept_cd" type="xs:string" maxOccurs="1"/>
+        <xs:element name="genotypes" type="varview:genotypes" maxOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>
