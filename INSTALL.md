@@ -1,5 +1,8 @@
 ### Installation
 
+The gdb-spark-api assumes you have a GenomicsDB instance and associated configuration files. 
+For more information: https://github.com/GenomicsDB/GenomicsDB.
+
 #### GDB-Mapping
 
 The gdb-spark-api will require connection to the gdb-mapping database. 
