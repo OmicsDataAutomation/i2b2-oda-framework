@@ -1,5 +1,31 @@
 ### Installation
 
+#### GDB-Mapping
+
+The gdb-spark-api will require connection to the gdb-mapping database. 
+* For postgres run: `createdb test`
+* Update the alembic.ini to point to this database
+* In the alembic folder run `alembic upgrade head` to run the migrations. 
+* Use the importer to populate the datbase from the genomicsdb configuration jsons:
+```{bash}
+gdb-mapping-0.4/importer/importer/importer postgresql:///test /path/to/loader/json \
+-r hg19 -o 1 -g /path/to/a/gene/mapping/file
+```
+* For more information on the importer run:
+```
+gdb-mapping-0.4/importer/importer/importer --help
+```
+* Provide a map file to register callsets with ehr_map. Register callsets with a callset_description file 
+which is a tab-delimited file with two columns: ehr_map id (first column) and the callset name (second column).
+```{bash}
+gdb-mapping-0.4/importer/importer/importer postgresql:///test /path/to/loader/json \
+-r hg19 -o 1 --ehr_map /path/to/callset/description/file \
+--callset_description /path/to/callset/description/file
+```
+* Once the database is populated, update `variantview-cell/cfg/db-properties.flat` with the relevant information.
+
+#### i2b2 Plugin
+
 This section assumes that i2b2 has been installed and populated with data. 
 Installation steps are:
 * Git clone the variantview-webclient repo. Create a link (or copy the repo) to a subfolder 
