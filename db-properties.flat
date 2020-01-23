@@ -1,0 +1,7 @@
+jdbcUrl=jdbc:postgresql://127.0.0.1:5432/test
+user=user
+password=password
+trustStore=/path/to/truststore.jks
+trustStorePassword=password
+keyStore=/path/to/keystore.jks
+keyStorePassword=password

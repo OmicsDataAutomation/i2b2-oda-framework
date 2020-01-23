@@ -1,0 +1,15 @@
+driverip=127.0.0.1
+masterip=127.0.0.1
+master=spark://127.0.0.1:7077
+hostfile=/path/to/genomicsdb/hostfile
+loader_file=/path/to/genomicsdb/loader
+workspace=/path/to/genomicsdb/workspace
+array=genomicsdbarray
+dbprops=/path/to/db-properties.flat
+sparkhome=/path/to/spark/home
+deploy=client
+gdbspark=genomicsdb/gdb-spark-api-1.0.0.jar
+mongoip=127.0.0.1
+mongodb=test
+sparktimeout=300
+timeout=18000000
