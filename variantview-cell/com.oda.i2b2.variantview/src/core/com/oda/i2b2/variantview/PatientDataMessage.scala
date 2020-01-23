@@ -488,7 +488,7 @@ class PatientDataMessage /**
                   "_id" , new Document("name", "$name")).append(
                   "data", new Document(
                     "$push", new Document(
-                      "Contig","$Contig").append("Start", "$Start").append("snp_id", "$snp_id").append("RefAlleleCount", "$RefAlleleCount").append("AltAlleleCount","$AltAlleleCount"))))
+                      "Contig","$_1").append("Start", "$_2").append("snp_id", "$snp_id").append("RefAlleleCount", "$_3").append("AltAlleleCount","$_4"))))
     
     }else{
       throw new I2B2Exception("Only total allele counts supported in demo.")
