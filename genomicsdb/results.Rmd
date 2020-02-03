@@ -1,0 +1,211 @@
+---
+title: "Manuscript Results"
+author: "Jaclyn Smith"
+date: "1/30/2020"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+setwd("/Users/jac/Dropbox/BusinessPlan/UCLA/Papers/tests/")
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(ggpubr)
+```
+
+## Linear-scale distributed import
+
+#### Whole exome 1000 Genomes
+
+```{r, echo=FALSE}
+data <- read.delim('Data/fig6_1000g_etl.csv', sep=",",header=F)
+
+ggplot(data=data, aes(x=V2, y=V4, group=V3, shape=V3, colour=V3)) + 
+  geom_line() + 
+  geom_point() +
+  labs(title="", x = 'Number of Samples', y = 'Time (s)') +
+  theme(#legend.justification=c(1,0), 
+        #legend.position=c(0.35, 0.75),  
+        legend.background = element_blank(),
+        axis.title.y = element_text(margin = margin(t = 0, r = 0, b = 0, l = 0)),
+        axis.text.y = element_text(angle = 90, hjust = 1)) +
+  scale_colour_discrete(name  ="",
+                        breaks=c("m4.2xlarge", "r4.2xlarge", "m4.4xlarge", "r4.4xlarge"),
+                        labels=c("m4.2xlarge", "r4.2xlarge", "m4.4xlarge", "r4.4xlarge")) +
+  scale_shape_discrete(name  ="",
+                       breaks=c("m4.2xlarge", "r4.2xlarge", "m4.4xlarge", "r4.4xlarge"),
+                       labels=c("m4.2xlarge", "r4.2xlarge", "m4.4xlarge", "r4.4xlarge"))
+
+```
+
+#### Microarray AtLAs
+
+```{r, echo=FALSE}
+data <- read.delim('Data/fig7_atlas_etl.csv', sep=",",header=F)
+
+ggplot(data=data, aes(x=V2, y=V4, group=V3, shape=V3, colour=V3)) + 
+  geom_line() + 
+  geom_point() +
+  labs(title="", x = 'Number of Samples', y = 'Time (s)') +
+  theme(#legend.justification=c(1,0), 
+        #legend.position=c(0.35, 0.75),  
+        legend.background = element_blank(),
+        axis.title.y = element_text(margin = margin(t = 0, r = 0, b = 0, l = 0)),
+        axis.text.y = element_text(angle = 90, hjust = 1)) +
+  scale_colour_discrete(name  ="",
+                        breaks=c("m4.2xlarge", "r4.2xlarge", "m4.4xlarge", "r4.4xlarge"),
+                        labels=c("m4.2xlarge", "r4.2xlarge", "m4.4xlarge", "r4.4xlarge")) +
+  scale_shape_discrete(name  ="",
+                       breaks=c("m4.2xlarge", "r4.2xlarge", "m4.4xlarge", "r4.4xlarge"),
+                       labels=c("m4.2xlarge", "r4.2xlarge", "m4.4xlarge", "r4.4xlarge"))
+```
+
+## Linear-scale database partition size
+
+```{r, echo=FALSE}
+data <- read.delim('Data/fig8_sizes.csv', sep=",",header=F)
+
+ggplot(data=data, aes(x=V2, y=V3, group=V1, shape=V1, colour=V1)) + 
+  geom_line() + 
+  geom_point() +
+  theme(#legend.justification=c(1,0), 
+        #legend.position=c(0.25, 0.85),  
+        legend.background = element_blank(),
+        axis.title.y = element_text(margin = margin(t = 0, r = 0, b = 0, l = 0)),
+        axis.text.y = element_text(angle = 90, hjust = 1)) +
+  labs(title="", x = 'Number of Samples', y = 'Size (Gigabytes)') +
+  scale_colour_discrete(name  ="",
+                        breaks=c("1000G", "AtLAs"),
+                        labels=c("1000g", "AtLAs")) +
+  scale_shape_discrete(name  ="",
+                       breaks=c("1000G", "AtLAs"),
+                       labels=c("1000g", "AtLAs"))
+```
+
+## Linear-scale genotype query time
+
+#### Whole exome 1000 Genomes
+
+```{r, echo=FALSE}
+data <- read.delim('Data/fig9_1000g.csv', sep=",",header=F)
+data$timeS <- as.numeric(data$V3)/1000
+
+avgs <- aggregate(data$timeS, by=list(data$V1, data$V2, data$V4), FUN=mean)
+
+ggplot(data=avgs, aes(x=Group.3, y=x, group=Group.2, shape=Group.2, colour=Group.2)) + 
+  geom_line() + 
+  geom_point() +
+  labs(title="", x = 'Number of Samples', y = 'Time (s)') +
+  theme(#legend.justification=c(1,0), 
+        #legend.position=c(0.27, 0.75),  
+        legend.background = element_blank(),
+        axis.title.y = element_text(margin = margin(t = 0, r = -13, b = 0, l = 0)),
+        axis.text.y = element_text(angle = 90, hjust = 1)) +
+  scale_colour_discrete(name  ="",
+                        breaks=c("1", "10", "22", "BRCA1", "snps", "TP53:BRCA1:APOE"),
+                        labels=c("Chr1", "Chr10", "Chr22", "1 gene", "2 snps", "3 genes")) +
+  scale_shape_discrete(name  ="",
+                       breaks=c("1", "10", "22", "BRCA1", "snps", "TP53:BRCA1:APOE"),
+                       labels=c("Chr1", "Chr10", "Chr22", "1 gene", "2 snps", "3 genes"))
+```
+
+#### Microarray AtLAs
+
+```{r, echo=FALSE}
+data <- read.delim('Data/fig10_atlas.csv', sep=",",header=F)
+data$timeS <- as.numeric(data$V3)/1000
+
+avgs <- aggregate(data$timeS, by=list(data$V1, data$V2, data$V4), FUN=mean)
+
+ggplot(data=avgs, aes(x=Group.3, y=x, group=Group.2, shape=Group.2, colour=Group.2)) + 
+  geom_line() + 
+  geom_point() +
+  labs(title="", x = 'Number of Samples', y = 'Time (s)') +
+  theme(#legend.justification=c(1,0), 
+        #legend.position=c(0.35, 0.70),  
+        legend.background = element_blank(),
+        axis.title.y = element_text(margin = margin(t = 0, r = -13, b = 0, l = 0)),
+        axis.text.y = element_text(angle = 90, hjust = 1)) +
+  scale_colour_discrete(name  ="",
+                        breaks=c("1", "10", "22", "BRCA1", "snps", "TP53:BRCA1:APOE"),
+                        labels=c("Chr1", "Chr10", "Chr22", "1 gene", "2 snps", "3 genes")) +
+  scale_shape_discrete(name  ="",
+                       breaks=c("1", "10", "22", "BRCA1", "snps", "TP53:BRCA1:APOE"),
+                       labels=c("Chr1", "Chr10", "Chr22", "1 gene", "2 snps", "3 genes"))
+```
+
+## Linear-scale genotype-phenotype query time
+
+```{r, echo=FALSE}
+datasub2 <- read.delim('Data/fig111213_genopheno.csv', sep=",",header=F)
+datasub <- datasub2[datasub2$V2 != 10154,]
+data <- aggregate(datasub$V4, by=list(datasub$V1, datasub$V2, datasub$V3), FUN=mean)
+groups <- c("TP53:BRCA1:APOE", "chr22", "chr10", "chr1")
+labels <- c("3 genes", "Chr 22", "Chr 10", "Chr 1")
+```
+
+#### Patients by clinical dataset import time
+
+```{r, echo=FALSE}
+data1 <- datasub[datasub$V1 == "clinical",]
+data1$V4 <- as.numeric(data1$V4)/1000
+data1a <- aggregate(data1$V4, by=list(data1$V1, data1$V2), FUN=mean)
+
+lp1 <- ggplot(data=data1a, aes(x=Group.2, y=x)) +
+  geom_line() + 
+  geom_point() +
+  labs(title="", x = 'Number of patients', y = 'Time (s)')
+
+lp1 + scale_colour_discrete(name="Genomic Region",
+                            breaks=groups,
+                            labels=labels) +
+      scale_shape_discrete(name  ="Genomic Region",
+                            breaks=groups,
+                            labels=labels)
+```
+
+#### Patients by genotype-phenotype query time
+
+```{r, echo=FALSE}
+data2 <- datasub[datasub$V1 == "genomic",]
+data2$V4 <- as.numeric(data2$V4)/1000
+data2a <- aggregate(data2$V4, by=list(data1$V1, data1$V2, data1$V3, data1$V5), FUN=mean)
+
+data2a$Group.2 <- factor(data2a$Group.2)
+
+lp1 <- ggplot(data=data2a, aes(x=Group.4, y=x, group=Group.2, shape=Group.2, colour=Group.2)) + 
+  geom_line() + 
+  geom_point() +
+  labs(title="", x = 'Number of variants', y = 'Time (s)')
+
+lp1 + scale_colour_discrete(name="Number of patients",
+                            breaks=data2a$Group.2,
+                            labels=data2a$Group.2) +
+      scale_shape_discrete(name  ="Number of patients",
+                            breaks=data2a$Group.2,
+                            labels=data2a$Group.2)
+```
+
+#### Variants by genotype-phenotype query time
+
+```{r, echo=FALSE}
+data2 <- datasub[datasub$V1 == "genomic",]
+data2$V4 <- as.numeric(data2$V4)/1000
+data2a <- aggregate(data2$V4, by=list(data1$V1, data1$V2, data1$V3, data1$V5), FUN=mean)
+
+data2$V2 <- factor(data2$V2)
+
+lp1 <- ggplot(data=data2a, aes(x=Group.2, y=x, group=Group.3, shape=Group.3, colour=Group.3)) +
+  geom_point() +
+  geom_smooth(method=lm, se=FALSE) +
+  labs(title="", x = 'Number of patients', y = 'Time (s)')
+
+lp1 + scale_colour_discrete(name="Genomic Region",
+                            breaks=groups,
+                            labels=labels) +
+      scale_shape_discrete(name  ="Genomic Region",
+                            breaks=groups,
+                            labels=labels)
+```
